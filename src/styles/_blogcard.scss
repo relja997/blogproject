@@ -1,0 +1,32 @@
+.blog-card-thumbnail {
+	width: 80px;
+	height: 80px;
+}
+
+.blog-post-metadata {
+	font-size: small;
+	color: rgb(149, 149, 149);
+}
+
+.button-box {
+	float: right;
+	button {
+		margin-left: 1rem;
+	}
+}
+
+.blog-card {
+	border: 1px solid black;
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.blogpost-placeholder {
+	width: 100px;
+	height: 100px;
+	margin-left: 0.5rem;
+}
+
+.blogpost-button {
+	width: 3.7rem;
+}
