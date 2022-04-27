@@ -1,5 +1,13 @@
+@use 'variables';
+
 .cancel-button {
 	&:hover {
-		background-color: red !important;
+		background-color: variables.$decline !important;
+	}
+}
+
+.post-button {
+	&:hover {
+		background-color: variables.$confirm !important;
 	}
 }

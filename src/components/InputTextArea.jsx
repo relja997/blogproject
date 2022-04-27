@@ -1,21 +1,22 @@
 import { Form } from 'react-bootstrap';
 
-const InputTextField = ({ title, msg, val, setVal }) => {
+const InputTextArea = ({ title, msg, val, setVal }) => {
 	return (
 		<>
-			<Form.Label htmlFor='inputTitle'>{title}</Form.Label>
+			<Form.Label htmlFor='inputText'>{title}</Form.Label>
 			<Form.Control
 				type='text'
-				id='inputTitle'
+				id='inputText'
 				placeholder={msg}
+				as='textarea'
+				rows={3}
 				value={val}
 				onChange={e => {
 					setVal(e.target.value);
 				}}
-				autoFocus
 			/>
 		</>
 	);
 };
 
-export default InputTextField;
+export default InputTextArea;

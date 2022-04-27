@@ -1,14 +1,15 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import BlogCard from './BlogCard';
+import BlogCardList from './BlogCardList';
 import ModalComponent from './ModalComponent';
 
-const Content = ({ showModal, setShowModal }) => {
+const Content = ({ showModal, setShowModal, blogs }) => {
 	return (
 		<>
 			<ModalComponent showModal={showModal} setShowModal={setShowModal} />
 			<Row>
-				<Col md={2} className='blog-categories'>
+				<Col xs={12} md={2} className='blog-categories'>
 					<h5>Blog categories</h5>
 					<ul>
 						<li>
@@ -22,22 +23,8 @@ const Content = ({ showModal, setShowModal }) => {
 						</li>
 					</ul>
 				</Col>
-				<Col md={10}>
-					<Row>
-						<Col>
-							<BlogCard />
-						</Col>
-					</Row>
-					<Row>
-						<Col>
-							<BlogCard />
-						</Col>
-					</Row>
-					<Row>
-						<Col>
-							<BlogCard />
-						</Col>
-					</Row>
+				<Col xs={12} md={10}>
+					<BlogCardList blogs={blogs} />
 				</Col>
 			</Row>
 		</>

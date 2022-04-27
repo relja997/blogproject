@@ -6,13 +6,13 @@ const Header = ({ setShowModal }) => {
 		<>
 			<Row className='mt-2'>
 				<Col md={2}></Col>
-				<Col md={10}>
+				<Col sm={12} md={10}>
 					<h3>Welcome to my blog</h3>
 				</Col>
 			</Row>
 			<Row className='mt-2'>
 				<Col md={2}></Col>
-				<Col md={10} className='message-box'>
+				<Col sm={12} md={10} className='message-box'>
 					<p>Container for showing application messages</p>
 				</Col>
 			</Row>

@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const mode =
 	process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
@@ -46,6 +47,7 @@ module.exports = {
 			template: './src/index.html',
 			inject: 'body',
 		}),
+		new Dotenv(),
 	],
 
 	resolve: {
