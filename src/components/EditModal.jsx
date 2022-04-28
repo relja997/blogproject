@@ -1,14 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Alert, Button, Form, Modal } from 'react-bootstrap';
 import InputTextArea from './InputTextArea';
 import InputTextField from './InputTextField';
 
-const ModalComponent = ({ showModal, setShowModal, getBlogs, setMessage }) => {
-	const [title, setTitle] = useState('');
-	const [text, setText] = useState('');
+const EditModal = ({
+	showEditModal,
+	setShowEditModal,
+	getBlogs,
+	setMessage,
+	titleVal,
+	textVal,
+	idVal,
+	categoryVal,
+}) => {
+	const [title, setTitle] = useState(titleVal);
+	const [text, setText] = useState(textVal);
+	const [id, setId] = useState(idVal);
+	const [category, setCategory] = useState(categoryVal);
 
-	const handlePost = async () => {
+	const handleEdit = async () => {
 		if (text === '' || title === '') {
 			setMessage(
 				<Alert
@@ -21,20 +32,30 @@ const ModalComponent = ({ showModal, setShowModal, getBlogs, setMessage }) => {
 					Both fields are required
 				</Alert>
 			);
-			setShowModal(false);
+			setShowEditModal(false);
 			return;
 		}
-		let res;
-		const category = Math.floor(Math.random() * 3) + 1;
 		try {
-			res = await axios.post(
-				`${process.env.REACT_APP_BLOG_API}/BlogPosts`,
-				{
-					id: 1,
+			const res = await axios({
+				method: 'put',
+				url: `${process.env.REACT_APP_BLOG_API}/BlogPosts/${id}`,
+				data: {
+					id: id,
 					title: title,
 					text: text,
 					categoryId: category,
-				}
+				},
+			});
+			setMessage(
+				<Alert
+					variant='success'
+					onClose={() => {
+						setMessage('');
+					}}
+					dismissible
+				>
+					Successfully updated blog post
+				</Alert>
 			);
 		} catch (err) {
 			setMessage(
@@ -45,35 +66,27 @@ const ModalComponent = ({ showModal, setShowModal, getBlogs, setMessage }) => {
 					}}
 					dismissible
 				>
-					Error when adding new blog post
+					Error when updating blog post
 				</Alert>
 			);
 		}
-		await getBlogs();
-		if (res?.status >= 200 && res?.status <= 300) {
-			setMessage(
-				<Alert
-					variant='success'
-					onClose={() => {
-						setMessage('');
-					}}
-					dismissible
-				>
-					Successfully added new blog post
-				</Alert>
-			);
-		}
-		setTitle('');
-		setText('');
-		setShowModal(false);
+		getBlogs();
+		setShowEditModal(false);
 	};
+
+	useEffect(() => {
+		setTitle(titleVal);
+		setText(textVal);
+		setId(idVal);
+		setCategory(categoryVal);
+	}, [showEditModal]);
 
 	return (
 		<>
 			<Modal
-				show={showModal}
+				show={showEditModal}
 				onHide={() => {
-					setShowModal(false);
+					setShowEditModal(false);
 				}}
 			>
 				<Modal.Header closeButton>
@@ -98,15 +111,15 @@ const ModalComponent = ({ showModal, setShowModal, getBlogs, setMessage }) => {
 				<Modal.Footer>
 					<Button
 						variant='dark'
-						onClick={handlePost}
+						onClick={handleEdit}
 						className='post-button'
 					>
-						Post
+						Update
 					</Button>
 					<Button
 						variant='secondary'
 						onClick={() => {
-							setShowModal(false);
+							setShowEditModal(false);
 						}}
 						className='cancel-button'
 					>
@@ -118,4 +131,4 @@ const ModalComponent = ({ showModal, setShowModal, getBlogs, setMessage }) => {
 	);
 };
 
-export default ModalComponent;
+export default EditModal;

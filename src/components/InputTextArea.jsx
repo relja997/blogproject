@@ -14,6 +14,7 @@ const InputTextArea = ({ title, msg, val, setVal }) => {
 				onChange={e => {
 					setVal(e.target.value);
 				}}
+				required
 			/>
 		</>
 	);

@@ -7,6 +7,7 @@ import NavbarComponent from './NavbarComponent';
 
 const App = () => {
 	const [showModal, setShowModal] = useState(false);
+	const [showEditModal, setShowEditModal] = useState(false);
 	const [blogs, setBlogs] = useState([]);
 	const [message, setMessage] = useState('');
 
@@ -33,6 +34,8 @@ const App = () => {
 				setMessage={setMessage}
 				showModal={showModal}
 				setShowModal={setShowModal}
+				showEditModal={showEditModal}
+				setShowEditModal={setShowEditModal}
 				getBlogs={getBlogs}
 				blogs={blogs}
 			/>

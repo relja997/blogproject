@@ -13,6 +13,7 @@ const InputTextField = ({ title, msg, val, setVal }) => {
 					setVal(e.target.value);
 				}}
 				autoFocus
+				required
 			/>
 		</>
 	);

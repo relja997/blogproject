@@ -5,7 +5,17 @@ import avatarIcon from '../images/man.png';
 import placeholderIcon from '../images/placeholder.png';
 import axios from 'axios';
 
-const BlogCard = ({ blog, index, setMessage, getBlogs }) => {
+const BlogCard = ({
+	blog,
+	index,
+	setMessage,
+	getBlogs,
+	setShowEditModal,
+	setTitleVal,
+	setTextVal,
+	setIdVal,
+	setCategoryVal,
+}) => {
 	const handleDelete = async () => {
 		try {
 			const res = await axios({
@@ -39,6 +49,14 @@ const BlogCard = ({ blog, index, setMessage, getBlogs }) => {
 		}
 	};
 
+	const handleEdit = () => {
+		setTitleVal(blog.title);
+		setTextVal(blog.text);
+		setIdVal(blog.id);
+		setCategoryVal(blog.categoryId);
+		setShowEditModal(true);
+	};
+
 	return (
 		<div className={`blog-card ${index % 2 === 0 ? 'pair-card' : ''}`}>
 			<Row>
@@ -66,6 +84,7 @@ const BlogCard = ({ blog, index, setMessage, getBlogs }) => {
 							variant='dark'
 							size='sm'
 							className='blogpost-button'
+							onClick={handleEdit}
 						>
 							Edit
 						</Button>
