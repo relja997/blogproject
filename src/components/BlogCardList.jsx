@@ -2,13 +2,18 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import BlogCard from './BlogCard';
 
-const BlogCardList = ({ blogs }) => {
-	return blogs.map(blog => {
+const BlogCardList = ({ blogs, setMessage, getBlogs }) => {
+	return blogs.map((blog, i) => {
 		return (
 			<div key={blog.id}>
 				<Row>
 					<Col>
-						<BlogCard blog={blog} />
+						<BlogCard
+							blog={blog}
+							index={i}
+							setMessage={setMessage}
+							getBlogs={getBlogs}
+						/>
 					</Col>
 				</Row>
 			</div>

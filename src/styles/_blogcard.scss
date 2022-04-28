@@ -1,3 +1,5 @@
+@use 'variables';
+
 .blog-post-metadata {
 	font-size: small;
 	color: rgb(149, 149, 149);
@@ -18,4 +20,12 @@
 
 .blogpost-placeholder {
 	margin-left: 0.5rem;
+}
+
+.pair-card {
+	background-color: variables.$msg-box-color;
+}
+
+.blog-categories {
+	margin-bottom: 0.5rem;
 }

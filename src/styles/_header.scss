@@ -1,7 +1,4 @@
-@use 'variables';
-
-.message-box {
-	background-color: variables.$msg-box-color;
-	height: 4rem;
-	border: 1px solid black;
+.column-button {
+	display: flex;
+	justify-content: flex-end;
 }

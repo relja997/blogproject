@@ -8,12 +8,17 @@ import NavbarComponent from './NavbarComponent';
 const App = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [blogs, setBlogs] = useState([]);
+	const [message, setMessage] = useState('');
 
 	const getBlogs = async () => {
-		const res = await axios.get(
-			`${process.env.REACT_APP_BLOG_API}/BlogPosts`
-		);
-		setBlogs(res.data.resultData);
+		try {
+			const res = await axios.get(
+				`${process.env.REACT_APP_BLOG_API}/BlogPosts`
+			);
+			setBlogs(res.data.resultData);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	useEffect(() => {
@@ -23,10 +28,12 @@ const App = () => {
 	return (
 		<>
 			<NavbarComponent />
-			<Header setShowModal={setShowModal} />
+			<Header setShowModal={setShowModal} message={message} />
 			<Content
+				setMessage={setMessage}
 				showModal={showModal}
 				setShowModal={setShowModal}
+				getBlogs={getBlogs}
 				blogs={blogs}
 			/>
 		</>

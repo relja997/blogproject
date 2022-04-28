@@ -1,13 +1,17 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import BlogCard from './BlogCard';
 import BlogCardList from './BlogCardList';
 import ModalComponent from './ModalComponent';
 
-const Content = ({ showModal, setShowModal, blogs }) => {
+const Content = ({ showModal, setShowModal, getBlogs, blogs, setMessage }) => {
 	return (
 		<>
-			<ModalComponent showModal={showModal} setShowModal={setShowModal} />
+			<ModalComponent
+				showModal={showModal}
+				setShowModal={setShowModal}
+				getBlogs={getBlogs}
+				setMessage={setMessage}
+			/>
 			<Row>
 				<Col xs={12} md={2} className='blog-categories'>
 					<h5>Blog categories</h5>
@@ -24,7 +28,11 @@ const Content = ({ showModal, setShowModal, blogs }) => {
 					</ul>
 				</Col>
 				<Col xs={12} md={10}>
-					<BlogCardList blogs={blogs} />
+					<BlogCardList
+						blogs={blogs}
+						setMessage={setMessage}
+						getBlogs={getBlogs}
+					/>
 				</Col>
 			</Row>
 		</>

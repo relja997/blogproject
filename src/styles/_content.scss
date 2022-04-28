@@ -5,4 +5,11 @@
 		list-style-type: none;
 		padding-left: 0;
 	}
+
+	ul > li {
+		@media screen and (max-width: 768px) {
+			display: inline-block;
+			padding-right: 0.8rem;
+		}
+	}
 }

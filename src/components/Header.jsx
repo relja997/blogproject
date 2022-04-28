@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 
-const Header = ({ setShowModal }) => {
+const Header = ({ setShowModal, message }) => {
 	return (
 		<>
 			<Row className='mt-2'>
@@ -12,13 +12,13 @@ const Header = ({ setShowModal }) => {
 			</Row>
 			<Row className='mt-2'>
 				<Col md={2}></Col>
-				<Col sm={12} md={10} className='message-box'>
-					<p>Container for showing application messages</p>
+				<Col sm={12} md={10}>
+					{message}
 				</Col>
 			</Row>
 			<Row className='my-2'>
-				<Col md={11}></Col>
-				<Col md={1}>
+				<Col xs={10}></Col>
+				<Col xs={2} className='column-button'>
 					<Button
 						variant='dark'
 						size='sm'
