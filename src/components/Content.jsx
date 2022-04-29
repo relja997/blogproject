@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import BlogCardList from './BlogCardList';
 import EditModal from './EditModal';
 import ModalComponent from './ModalComponent';
+import axios from 'axios';
 
 const Content = ({
 	showModal,
@@ -10,13 +11,57 @@ const Content = ({
 	getBlogs,
 	blogs,
 	setMessage,
+	setCategories,
 	showEditModal,
 	setShowEditModal,
+	categories,
+	filteredBlogs,
+	setFilteredBlogs,
 }) => {
 	const [titleVal, setTitleVal] = useState('');
 	const [textVal, setTextVal] = useState('');
 	const [idVal, setIdVal] = useState(0);
 	const [categoryVal, setCategoryVal] = useState(0);
+
+	useEffect(async () => {
+		const arr = [];
+		const res = await axios.get(
+			`${process.env.REACT_APP_BLOG_API}/Category`
+		);
+		const cat = res.data.resultData;
+		blogs.forEach(blog => {
+			if (!arr.includes(blog.categoryId)) {
+				arr.push(blog.categoryId);
+			}
+		});
+		setCategories(arr);
+		cat.forEach(async category => {
+			if (!arr.includes(parseInt(category.name))) {
+				await axios({
+					method: 'delete',
+					url: `${process.env.REACT_APP_BLOG_API}/Category/${category.id}`,
+				});
+			}
+		});
+	}, [blogs]);
+
+	const handleCategorize = async category => {
+		try {
+			const res = await axios.get(
+				`${process.env.REACT_APP_BLOG_API}/BlogPosts/GetPostByCategory`,
+				{
+					params: {
+						categoryId: category,
+					},
+				}
+			);
+			const filtered = res.data.resultData;
+			setFilteredBlogs(filtered);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	return (
 		<>
 			<ModalComponent
@@ -24,6 +69,7 @@ const Content = ({
 				setShowModal={setShowModal}
 				getBlogs={getBlogs}
 				setMessage={setMessage}
+				categories={categories}
 			/>
 			<EditModal
 				showEditModal={showEditModal}
@@ -38,21 +84,30 @@ const Content = ({
 			<Row>
 				<Col xs={12} md={2} className='blog-categories'>
 					<h5>Blog categories</h5>
+
 					<ul>
-						<li>
-							<a href='#'>Category 1</a>
-						</li>
-						<li>
-							<a href='#'>Category 2</a>
-						</li>
-						<li>
-							<a href='#'>Category 3</a>
-						</li>
+						{categories.map(category => {
+							return (
+								<li key={category}>
+									<a
+										href='#'
+										onClick={e => {
+											e.preventDefault();
+											handleCategorize(category);
+										}}
+									>
+										Category {category}
+									</a>
+								</li>
+							);
+						})}
 					</ul>
 				</Col>
 				<Col xs={12} md={10}>
 					<BlogCardList
-						blogs={blogs}
+						blogs={
+							filteredBlogs.length === 0 ? blogs : filteredBlogs
+						}
 						setMessage={setMessage}
 						getBlogs={getBlogs}
 						setShowEditModal={setShowEditModal}
@@ -60,6 +115,7 @@ const Content = ({
 						setTextVal={setTextVal}
 						setIdVal={setIdVal}
 						setCategoryVal={setCategoryVal}
+						setFilteredBlogs={setFilteredBlogs}
 					/>
 				</Col>
 			</Row>

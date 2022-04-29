@@ -9,7 +9,9 @@ const App = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [blogs, setBlogs] = useState([]);
+	const [categories, setCategories] = useState([]);
 	const [message, setMessage] = useState('');
+	const [filteredBlogs, setFilteredBlogs] = useState([]);
 
 	const getBlogs = async () => {
 		try {
@@ -37,7 +39,11 @@ const App = () => {
 				showEditModal={showEditModal}
 				setShowEditModal={setShowEditModal}
 				getBlogs={getBlogs}
+				categories={categories}
+				setCategories={setCategories}
 				blogs={blogs}
+				filteredBlogs={filteredBlogs}
+				setFilteredBlogs={setFilteredBlogs}
 			/>
 		</>
 	);

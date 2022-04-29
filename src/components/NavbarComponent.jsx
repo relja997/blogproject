@@ -3,7 +3,15 @@ import { Container, Form, FormControl, Nav, Navbar } from 'react-bootstrap';
 const NavbarComponent = () => {
 	return (
 		<Navbar expand='md' bg='dark' variant='dark'>
-			<Navbar.Brand href='#home'>My blog</Navbar.Brand>
+			<Navbar.Brand
+				href='#home'
+				onClick={e => {
+					e.preventDefault();
+					location.reload();
+				}}
+			>
+				My blog
+			</Navbar.Brand>
 			<Navbar.Collapse id='responsive-navbar-nav'>
 				<Nav className='ms-auto'>
 					<Form className='d-flex'>

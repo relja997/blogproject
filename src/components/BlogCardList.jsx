@@ -11,6 +11,7 @@ const BlogCardList = ({
 	setTextVal,
 	setIdVal,
 	setCategoryVal,
+	setFilteredBlogs,
 }) => {
 	return blogs.map((blog, i) => {
 		return (
@@ -27,6 +28,7 @@ const BlogCardList = ({
 							setTextVal={setTextVal}
 							setIdVal={setIdVal}
 							setCategoryVal={setCategoryVal}
+							setFilteredBlogs={setFilteredBlogs}
 						/>
 					</Col>
 				</Row>

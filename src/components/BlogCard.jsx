@@ -15,6 +15,7 @@ const BlogCard = ({
 	setTextVal,
 	setIdVal,
 	setCategoryVal,
+	setFilteredBlogs,
 }) => {
 	const handleDelete = async () => {
 		try {
@@ -34,6 +35,7 @@ const BlogCard = ({
 				</Alert>
 			);
 			getBlogs();
+			setFilteredBlogs([]);
 		} catch (err) {
 			setMessage(
 				<Alert

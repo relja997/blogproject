@@ -4,7 +4,13 @@ import { Alert, Button, Form, Modal } from 'react-bootstrap';
 import InputTextArea from './InputTextArea';
 import InputTextField from './InputTextField';
 
-const ModalComponent = ({ showModal, setShowModal, getBlogs, setMessage }) => {
+const ModalComponent = ({
+	showModal,
+	setShowModal,
+	getBlogs,
+	setMessage,
+	categories,
+}) => {
 	const [title, setTitle] = useState('');
 	const [text, setText] = useState('');
 
@@ -25,12 +31,26 @@ const ModalComponent = ({ showModal, setShowModal, getBlogs, setMessage }) => {
 			return;
 		}
 		let res;
-		const category = Math.floor(Math.random() * 3) + 1;
+		const category = Math.floor(Math.random() * 5) + 1;
+
+		if (!categories.includes(category)) {
+			try {
+				const res = await axios.post(
+					`${process.env.REACT_APP_BLOG_API}/Category`,
+					{
+						id: category,
+						name: category.toString(),
+					}
+				);
+			} catch (error) {
+				console.log(error);
+			}
+		}
 		try {
 			res = await axios.post(
 				`${process.env.REACT_APP_BLOG_API}/BlogPosts`,
 				{
-					id: 1,
+					id: category,
 					title: title,
 					text: text,
 					categoryId: category,
