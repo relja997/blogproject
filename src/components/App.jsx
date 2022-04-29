@@ -30,7 +30,7 @@ const App = () => {
 
 	return (
 		<>
-			<NavbarComponent />
+			<NavbarComponent setFilteredBlogs={setFilteredBlogs} />
 			<Header setShowModal={setShowModal} message={message} />
 			<Content
 				setMessage={setMessage}
